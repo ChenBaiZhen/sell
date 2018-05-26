@@ -30,11 +30,5 @@ public class ProductInfoServiceImplTest {
     public void save() {
     }
 
-    @Test
-    public void onSale() {
-    }
 
-    @Test
-    public void offSale() {
-    }
 }
