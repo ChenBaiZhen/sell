@@ -20,10 +20,9 @@ public class ProductInfoRepositoryTest {
     @Autowired
     private ProductInfoRepository repository;
     @Test
-    @Transactional
     public void save(){
         ProductInfo productInfo=new ProductInfo();
-        productInfo.setProductId("233456");
+        productInfo.setProductId("333456");
         productInfo.setCategoryType(1);
         productInfo.setCreateTime(new Date());
         productInfo.setProductDescription("dsf");
@@ -41,5 +40,10 @@ public class ProductInfoRepositoryTest {
     public void findByProductStatus() {
         Assert.assertNotNull(repository.findByProductStatus(1).size());
         System.out.println(repository.findByProductStatus(1).size());
+    }
+
+    @Test
+    public void findByCategoryTypeAndProductStatus(){
+        Assert.assertEquals(1,repository.findByCategoryTypeAndProductStatus(1,1).size());
     }
 }

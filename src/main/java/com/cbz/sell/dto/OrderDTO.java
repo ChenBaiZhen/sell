@@ -1,24 +1,28 @@
-package com.cbz.sell.dataObject;
+package com.cbz.sell.dto;
 
-
+import com.cbz.sell.dataObject.OrderDetail;
 import com.cbz.sell.enums.OrderStatusEnum;
 import com.cbz.sell.enums.PayStatusEnum;
-import lombok.Data;
-import org.hibernate.annotations.DynamicUpdate;
+import com.cbz.sell.utils.Date2LongSerializer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import lombok.Data;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 
-@Entity
+/**
+ * Created by 廖师兄
+ * 2017-06-11 18:30
+ */
 @Data
-@DynamicUpdate
-public class OrderMaster {
+//@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+//@JsonInclude(JsonInclude.Include.NON_NULL)
+public class OrderDTO {
 
     /** 订单id. */
-    @Id
     private String orderId;
 
     /** 买家名字. */
@@ -37,15 +41,19 @@ public class OrderMaster {
     private BigDecimal orderAmount;
 
     /** 订单状态, 默认为0新下单. */
-    private Integer orderStatus = OrderStatusEnum.NEW.getCode();
+    private Integer orderStatus;
 
     /** 支付状态, 默认为0未支付. */
-    private Integer payStatus =PayStatusEnum.WAIT.getCode();
+    private Integer payStatus;
 
     /** 创建时间. */
+    @JsonSerialize(using = Date2LongSerializer.class)
     private Date createTime;
 
     /** 更新时间. */
+    @JsonSerialize(using = Date2LongSerializer.class)
     private Date updateTime;
+
+    List<OrderDetail> orderDetailList;
 
 }
